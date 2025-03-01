@@ -235,11 +235,11 @@ pull-maps: ##@assets Pulls maps
 
 pull-eqemu-code: ##@assets Pulls eqemu code
 	@./assets/scripts/banner.pl "Pulling EQEmu Source Code into [./code]"
-	git -C ./code pull 2> /dev/null || git clone https://github.com/EQEmu/Server.git code
+	git -C ./code pull 2> /dev/null || git clone https://github.com/N0ctrnl/VAServer.git code
 
 pull-peq-quests: ##@assets Pulls ProjectEQ quests
 	@./assets/scripts/banner.pl "Pulling Latest ProjectEQ Quests"
-	cd ~/server && git -C ./quests pull 2> /dev/null || git clone https://github.com/ProjectEQ/projecteqquests.git quests
+	cd ~/server && git -C ./quests pull 2> /dev/null || git clone https://github.com/N0ctrnl/VAQuests.git quests
 
 pull-docker-config: ##@assets Pulls default eqemu_config.json
 	@./assets/scripts/banner.pl "Bootstrapping default [eqemu_config.json]"
