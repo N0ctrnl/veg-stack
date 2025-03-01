@@ -107,14 +107,12 @@ init-directories: ##@init Bootstrap directories
 
 init-peq-database: ##@init Sources fresh PEQ database (Warning: Will over-write existing)
 	@./assets/scripts/banner.pl "Bootstrapping PEQ Database"
-	curl http://db.projecteq.net/api/v1/dump/latest -o /tmp/db.zip
-	unzip -o /tmp/db.zip -d /tmp/db/
-	cd /tmp/db/peq-dump/ && mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
+	curl http://assets.gilpin.info/vegarlson/db/db.sql -o /tmp/db.sql
+	mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
 		-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
 		-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
 		$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db') \
-		< ./create_all_tables.sql
-	rm -rf /tmp/db/
+		< /tmp/db.sql
 	cd ~/server && ./bin/world database:updates
 
 init-loginserver: ##@init Initializes Loginserver
@@ -131,10 +129,10 @@ init-loginserver: ##@init Initializes Loginserver
 		| jq '.client_configuration.sod_opcodes = "assets/opcodes/login_opcodes_sod.conf"' \
 		> ~/server/login.json
 	wget --quiet https://raw.githubusercontent.com/EQEmu/Server/master/loginserver/login_util/login_schema.sql -O /tmp/login_schema.sql
-	mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
-		-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
-		-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
-		$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db') < /tmp/login_schema.sql
+	#mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
+	#	-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
+	#	-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
+	#	$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db') < /tmp/login_schema.sql
 	@./assets/scripts/banner.pl "Loginserver initialized!"
 
 BIN_FILE_NAME=spire-admin-bin-$(shell date +"%m-%d-%Y-%H-%M-%S")
@@ -181,11 +179,11 @@ init-eqemu-admin-dev: ##@init Initializes EQEmu Admin (Development)
 	cd ~/server/eqemu-web-admin/frontend && npm install
 
 init-peq-editor: ##@init Initializes PEQ Editor DB tables
-	@wget --quiet https://raw.githubusercontent.com/ProjectEQ/peqphpeditor/master/sql/schema.sql -O /tmp/schema.sql
-	@mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
-    		-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
-    		-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
-    		$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db') < /tmp/schema.sql
+	#@wget --quiet https://raw.githubusercontent.com/ProjectEQ/peqphpeditor/master/sql/schema.sql -O /tmp/schema.sql
+	#@mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
+    	#	-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
+    	#	-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
+    	#	$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.db') < /tmp/schema.sql
 	@mysql -u$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.username') \
     		-p$(shell ~/assets/scripts/init/get-config-var.sh '.server.database.password') \
     		-h $(shell ~/assets/scripts/init/get-config-var.sh '.server.database.host') \
@@ -232,7 +230,7 @@ pull-maps: ##@assets Pulls maps
 		echo "maps is initialized"; \
 	else \
 		echo "maps is not initialized"; \
-		cd server && wget --progress=bar:force:noscroll https://github.com/Akkadius/eqemu-maps/releases/latest/download/maps.zip -O /tmp/maps.zip && unzip -o /tmp/maps.zip -d ~/server/maps && rm /tmp/maps.zip || true; \
+		cd server && wget --progress=bar:force:noscroll https://assets.gilpin.info/vegarlson/vamaps.zip -O /tmp/maps.zip && unzip -o /tmp/maps.zip -d ~/server/maps && rm /tmp/maps.zip || true; \
 	fi
 
 pull-eqemu-code: ##@assets Pulls eqemu code
