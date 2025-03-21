@@ -175,6 +175,7 @@ services:
     restart: unless-stopped
     ports:
       - "${IP_ADDRESS}:8081:80"
+      - "${IP_ADDRESS}:8091:81"
     environment:
       - BASIC_AUTH_USERNAME=${PEQ_EDITOR_PROXY_USERNAME:-peq-editor}
       - BASIC_AUTH_PASSWORD=${PEQ_EDITOR_PROXY_PASSWORD}
