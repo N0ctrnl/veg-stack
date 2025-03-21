@@ -12,8 +12,8 @@ http {
   access_log /dev/stdout;
 
   server {
-    listen ##PORT## ssl;
-    server_name edit.gilpin.info;
+    listen ##EDITOR_PORT## ssl;
+    server_name ##EDITOR_SERVER_NAME##;
 
     ssl_certificate /cert.cer;
     ssl_certificate_key /cert.key;
@@ -37,8 +37,8 @@ http {
   }
 
   server {
-    listen 81 ssl;
-    server_name spire.gilpin.info;
+    listen ##SPIRE_PORT## ssl;
+    server_name ##SPIRE_SERVER_NAME##;
 
     ssl_certificate /cert.cer;
     ssl_certificate_key /cert.key;

@@ -4,8 +4,10 @@ FROM nginx:1.11.9-alpine
 RUN apk add --no-cache --update apache2-utils
 RUN rm -f /etc/nginx/conf.d/*
 
-ENV SERVER_NAME vegarlson.gilpin.info
-ENV PORT 80
+ENV EDITOR_SERVER_NAME edit.gilpin.info
+ENV SPIRE_SERVER_NAME spire.gilpin.info
+ENV EDITOR_PORT 80
+ENV SPIRE_PORT 81
 ENV CLIENT_MAX_BODY_SIZE 1m
 ENV PROXY_READ_TIMEOUT 60s
 ENV WORKER_PROCESSES 1
