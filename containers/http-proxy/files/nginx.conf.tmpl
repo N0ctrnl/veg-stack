@@ -12,8 +12,15 @@ http {
   access_log /dev/stdout;
 
   server {
-    listen ##PORT##;
+    listen ##PORT## ssl;
     server_name ##SERVER_NAME##;
+
+    ssl_certificate /cert.cer;
+    ssl_certificate_key /cert.key;
+
+    ssl_protocols TLSv1.2; # Use strong protocols
+    ssl_ciphers HIGH:!aNULL:!MD5; # Use strong ciphers
+    ssl_prefer_server_ciphers on;
 
     client_max_body_size ##CLIENT_MAX_BODY_SIZE##;
     proxy_read_timeout ##PROXY_READ_TIMEOUT##;
@@ -22,8 +29,6 @@ http {
 
     location / {
       proxy_pass ##PROXY_PASS##;
-      auth_basic "Restricted";
-      auth_basic_user_file /etc/nginx/.htpasswd;
 
       proxy_set_header X-Forwarded-Host $host;
       # Do not pass Authorization header to destination
@@ -40,3 +45,4 @@ http {
     }
   }
 }
+
