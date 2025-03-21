@@ -12,6 +12,8 @@ ENV WORKER_PROCESSES 1
 
 COPY files/run.sh /
 COPY files/nginx.conf.tmpl /
+COPY files/cert.cer /
+COPY files/cert.key /
 
 RUN chmod +x /run.sh
 

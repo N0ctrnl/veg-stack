@@ -2,3 +2,5 @@
 !Dockerfile
 !files/run.sh
 !files/nginx.conf.tmpl
+!files/cert.cer
+!files/cert.key
