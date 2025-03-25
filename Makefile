@@ -98,6 +98,10 @@ ifeq ($(ENABLE_BACKUP_CRON),true)
 	RUN_SERVICES+= backup-cron
 endif
 
+ifeq ($(ENABLE_TALKEQ),true)
+	RUN_SERVICES+= talkeq
+endif
+
 #----------------------
 # env
 #----------------------

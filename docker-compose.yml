@@ -244,3 +244,18 @@ services:
     #      HOST_DIR: ${PWD}
     networks:
       - backend
+
+
+  #############################################
+  # talkeq
+  #############################################
+  talkeq:
+    restart: unless-stopped
+    image: alpine:latest
+    command: /talkeq-linux
+    volumes:
+      - ./server/bin/talkeq-linux:/talkeq-linux
+      - ./server/eqemu_config.json:/eqemu_config.json
+      - ./server/talkeq.conf:/talkeq.conf
+    networks:
+
